@@ -21,6 +21,7 @@ Experimentally, our GUI grounding model establishes state-of-the-art performance
 For example, GTA1-7B achieves 50.1%, 92.4%, and 67.7% accuracies on Screenspot-Pro, Screenspot-V2, and OSWorld-G benchmarks, respectively. Furthermore, when paired with a planner applying our test-time scaling strategy, it exhibits state-of-the-art agentic performance (e.g, 45.2% task success rate on OSWorld benchmark).  
 
 ## 📰 News
+- [Sep 22, 2025] Release [GTA1-32B-2509](https://huggingface.co/HelloKKMe/GTA1-32B-2509). Check out the model and experience a new level of SOTA performance!
 
 - [July 9, 2025] Release the [paper](https://arxiv.org/pdf/2507.05791) and [code](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/gta1_agent.py).
 
