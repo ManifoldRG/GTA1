@@ -8,7 +8,7 @@
 
     
 <div>
-   <a href="https://arxiv.org/pdf/2507.05791"><strong>Paper</strong></a>  | <a href="https://huggingface.co/datasets/HelloKKMe/grounding_dataset/tree/main"><strong>Dataset</strong></a>  | <a href="https://huggingface.co/blog/HelloKKMe/grounding-r1"><strong>Blog</strong></a> |  <a href="https://huggingface.co/HelloKKMe/GTA1-7B"><strong>7B Model</strong></a>  |  <a href="https://huggingface.co/HelloKKMe/GTA1-32B"><strong>32B Model</strong></a> |  <a href="https://huggingface.co/HelloKKMe/GTA1-72B"><strong>72B Model</strong></a>
+   <a href="https://arxiv.org/pdf/2507.05791"><strong>Paper</strong></a>  | <a href="https://huggingface.co/datasets/HelloKKMe/grounding_dataset/tree/main"><strong>Dataset</strong></a>  | <a href="https://huggingface.co/blog/HelloKKMe/grounding-r1"><strong>Blog</strong></a> |  <a href="https://huggingface.co/Salesforce/GTA1-7B"><strong>7B Model</strong></a>  |  <a href="https://huggingface.co/Salesforce/GTA1-32B"><strong>32B Model</strong></a> |  <a href="https://huggingface.co/Salesforce/GTA1-7B-2507"><strong>7B Model [Deprecated]</strong></a>
    </div>   
 </div>
     
@@ -18,7 +18,9 @@ This paper investigates the two aforementioned challenges with our GUI Test-time
 
 
 Experimentally, our GUI grounding model establishes state-of-the-art performance across diverse benchmarks.
-For example, GTA1-7B achieves 50.1%, 92.4%, and 67.7% accuracies on Screenspot-Pro, Screenspot-V2, and OSWorld-G benchmarks, respectively. Furthermore, when paired with a planner applying our test-time scaling strategy, it exhibits state-of-the-art agentic performance (e.g, 45.2% task success rate on OSWorld benchmark).  
+For example, GTA1-7B-2507 achieves 50.1%, 92.4%, and 55.1% accuracies on Screenspot-Pro, Screenspot-V2, and OSWorld-G benchmarks, respectively. Furthermore, when paired with a planner applying our test-time scaling strategy, it exhibits state-of-the-art agentic performance (e.g, 45.2% task success rate on OSWorld benchmark).  
+[Updated] With GTA1-7B, the model achieves 93.4%, 55.5%, and 60.1% accuracies on the Screenspot-Pro, Screenspot-V2, and OSWorld-G benchmarks, respectively.
+[Updated] With GTA1-32B, it further improves to 95.2%, 63.6%, and 65.2% accuracies on the same benchmarks.
 
 ## 📰 News
 - [Oct 3, 2025]  Rlease new [GTA1](https://huggingface.co/collections/Salesforce/gta1-68d4ddc72ca7fdab388804e7) version. Check out the model and experience a new level of SOTA performance!
@@ -135,7 +137,7 @@ def extract_coordinates(raw_string):
         return 0,0
 
 # Load model and processor
-model_path = "HelloKKMe/GTA1-32B"
+model_path = "HelloKKMe/GTA1-7B-2507"
 max_new_tokens = 32
 
 model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
@@ -210,6 +212,8 @@ Please contact `yan.yang@anu.edu.au` for any queries.
 
 We thank the open-source projects: [VLM-R1](https://github.com/om-ai-lab/VLM-R1), [Jedi](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/jedi_7b_agent.py), and [Agent-S2](https://github.com/simular-ai/Agent-S).
 
+We thank [UI-TARS](https://github.com/bytedance/UI-TARS) and [OpenCUA](https://github.com/xlang-ai/OpenCUA) for open-sourcing their strong foundational models.
+
 ## License
 
 This dataset follows CC-BY-NC-SA 4.0 license. Please use this dataset for non-commercial use ONLY.
@@ -219,7 +223,7 @@ If you use this repository or find it helpful in your research, please cite it a
 ```bibtex
 @misc{yang2025gta1guitesttimescaling,
       title={GTA1: GUI Test-time Scaling Agent}, 
-      author={Yan Yang and Dongxu Li and Yutong Dai and Yuhao Yang and Ziyang Luo and Zirui Zhao and Zhiyuan Hu and Junzhe Huang and Amrita Saha and Zeyuan Chen and Ran Xu and Liyuan Pan and Caiming Xiong and Junnan Li},
+      author={Yan Yang and Dongxu Li and Yutong Dai and Yuhao Yang and Ziyang Luo and Zirui Zhao and Zhiyuan Hu and Junzhe Huang and Amrita Saha and Zeyuan Chen and Ran Xu and Liyuan Pan and Silvio Savarese and Caiming Xiong and Junnan Li},
       year={2025},
       eprint={2507.05791},
       archivePrefix={arXiv},
