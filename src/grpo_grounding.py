@@ -42,6 +42,8 @@ import random
 import math
 from qwen_vl_utils import smart_resize
 from transformers import AutoProcessor
+from transformers import BitsAndBytesConfig
+import torch
 from liger_kernel.transformers import apply_liger_kernel_to_qwen2_5_vl
 
 @dataclass
@@ -216,6 +218,33 @@ def main(script_args, training_args, model_args):
     trainer_cls = Qwen2VLGRPOTrainer
 
     apply_liger_kernel_to_qwen2_5_vl(fused_linear_cross_entropy=False)
+
+    # Configure quantization (QLoRA) if requested via model args
+    try:
+        enable_4bit = bool(getattr(model_args, "load_in_4bit", False))
+        enable_8bit = bool(getattr(model_args, "load_in_8bit", False))
+    except Exception:
+        enable_4bit, enable_8bit = False, False
+
+    if enable_4bit or enable_8bit:
+        if enable_4bit and enable_8bit:
+            raise ValueError("Cannot enable both 4-bit and 8-bit quantization at the same time.")
+
+        bnb_compute_dtype = getattr(model_args, "bnb_4bit_compute_dtype", "bfloat16")
+        if isinstance(bnb_compute_dtype, str):
+            bnb_compute_dtype = getattr(torch, bnb_compute_dtype)
+
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=enable_4bit,
+            load_in_8bit=enable_8bit,
+            bnb_4bit_quant_type=getattr(model_args, "bnb_4bit_quant_type", "nf4"),
+            bnb_4bit_use_double_quant=bool(getattr(model_args, "bnb_4bit_use_double_quant", True)),
+            bnb_4bit_compute_dtype=bnb_compute_dtype,
+        )
+
+        if training_args.model_init_kwargs is None:
+            training_args.model_init_kwargs = {}
+        training_args.model_init_kwargs["quantization_config"] = quantization_config
 
     # Initialize the GRPO trainer
     trainer = trainer_cls(
